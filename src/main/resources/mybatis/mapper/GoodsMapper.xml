@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxy.jxyapi.mapper.GoodsMapper">
+    <resultMap id="goodsEntity" type="com.jxy.jxyapi.entity.GoodsEntity">
+        <result column="goods_id" property="goodsId"></result>
+        <result column="category_id" property="categoryId"></result>
+        <result column="goods_name" property="goodsName"></result>
+        <result column="goods_desc" property="goodsDesc"></result>
+        <result column="goods_image" property="goodsImage"></result>
+        <result column="price" property="price"></result>
+        <result column="goods_unit" property="goodsUnit"></result>
+        <result column="status" property="status"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_time" property="updateTime"></result>
+    </resultMap>
+
+    <!-- 商品列表 -->
+    <select id="queryGoodsList" parameterType="com.jxy.jxyapi.entity.GoodsEntity"
+            resultType="com.jxy.jxyapi.entity.GoodsEntity">
+        SELECT *
+        FROM jxy_goods
+        <where>
+            <if test="categoryId != null">
+                AND category_id = #{categoryId, jdbcType=INTEGER}
+            </if>
+            <if test="status != null">
+                AND status = #{status, jdbcType=INTEGER}
+            </if>
+        </where>
+        ORDER BY goods_id DESC
+    </select>
+
+</mapper>
